@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBS Capital Preloader</title>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --size: 8;
+  --speed: 2;
+  --hue: 0;
+  --tone: 0;
+  --green: #00C83C;
+  --blue: #0020E6;
+  --white: #FFFFFF;
+  --dark: #0A0F1A;
+  --gray-text: #94A3B8;
+  --radius-max: 50px;
+  --radius-modern: 16px;
+}
+
+.loader-section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  color: var(--white);
+  position: relative;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: relative;
+  transform: rotateZ(45deg);
+  perspective: 1000px;
+  color: var(--green);
+}
+
+.loader:before,
+.loader:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  transform: rotateX(70deg);
+  animation: 1s spin linear infinite;
+}
+
+.loader:after {
+  transform: rotateY(70deg);
+  color: #FF3D00;
+  animation-delay: 0.4s;
+}
+
+.loader-text {
+  margin-top: 20px;
+  font-size: 3vmin;
+  text-align: center;
+  animation: textColor 2s linear infinite alternate;
+}
+
+@keyframes spin {
+  0%, 100% { box-shadow: .2em 0 0 0 currentcolor; }
+  12% { box-shadow: .2em .2em 0 0 currentcolor; }
+  25% { box-shadow: 0 .2em 0 0 currentcolor; }
+  37% { box-shadow: -.2em .2em 0 0 currentcolor; }
+  50% { box-shadow: -.2em 0 0 0 currentcolor; }
+  62% { box-shadow: -.2em -.2em 0 0 currentcolor; }
+  75% { box-shadow: 0 -.2em 0 0 currentcolor; }
+  87% { box-shadow: .2em -.2em 0 0 currentcolor; }
+}
+
+@keyframes textColor {
+  0% { color: var(--green); }
+  25% { color: var(--blue); }
+  50% { color: var(--dark); }
+  75% { color: var(--gray-text); }
+  100% { color: var(--green); }
+}
+</style>
+</head>
+<body>
+
+<section class="loader-section">
+  <div class="loader"></div>
+  <h1 class="loader-text">MBS Capital - We make your home dream</h1>
+</section>
+
+</body>
+</html>

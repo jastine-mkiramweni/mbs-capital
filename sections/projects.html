@@ -1,0 +1,418 @@
+
+    <style>
+        :root {
+            --green: #00C83C;
+            --blue: #0020E6;
+            --white: #FFFFFF;
+            --dark: #0A0F1A;
+            --gray-text: #94A3B8;
+            --radius-max: 50px;
+            --radius-modern: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+ 
+
+        .project-section {
+            padding: 40px 0;
+            background: linear-gradient(180deg, rgba(10, 15, 26, 1) 0%, rgba(0, 32, 230, 0.05) 100%);
+            background-color: var(--dark);
+            color: var(--white);
+            position: relative;
+        }
+
+        .project-header {
+            padding: 0 8%;
+            margin-bottom: 30px;
+        }
+
+        .project-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .project-title-row h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+        }
+
+        .project-title-row h2 span {
+            color: var(--green);
+        }
+
+        .controls-wrapper {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .switch-group {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px;
+            border-radius: var(--radius-max);
+            display: flex;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .switch-btn {
+            padding: 8px 18px;
+            border-radius: var(--radius-max);
+            border: none;
+            background: transparent;
+            color: var(--white);
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .switch-btn.active {
+            background: var(--green);
+            color: var(--dark);
+        }
+
+        .scroll-container {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px 8% 40px 8%;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-behavior: smooth;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 65%;
+            transform: translateY(-50%);
+            width: 54px;
+            height: 54px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: 0.3s;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-arrow:hover {
+            background: var(--green);
+            color: var(--dark);
+            border-color: var(--green);
+        }
+
+        .nav-arrow.left-arrow { left: 2%; }
+        .nav-arrow.right-arrow { right: 2%; }
+
+        @media (min-width: 1025px) {
+            .nav-arrow { display: flex; }
+        }
+
+        .project-card {
+            min-width: 350px;
+            width: 350px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            scroll-snap-align: start;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--green);
+        }
+
+        .card-image {
+            height: 240px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--green);
+            color: var(--dark);
+            padding: 6px 14px;
+            border-radius: var(--radius-max);
+            font-weight: 800;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-content {
+            padding: 25px;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 32, 230, 0.1) 100%);
+        }
+
+        .card-location {
+            color: var(--green);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .price-tag {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+        }
+
+        .price-period {
+            font-size: 0.9rem;
+            color: var(--gray-text);
+            font-weight: 500;
+        }
+
+        .card-footer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .view-btn {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .view-btn:hover { color: var(--green); }
+
+        .ph-heart {
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .ph-heart.ph-fill {
+            color: var(--green) !important;
+        }
+
+        @media (max-width: 768px) {
+            .project-card { min-width: 300px; }
+            .project-header { padding: 0 5%; }
+            .scroll-container { padding: 20px 5% 40px 5%; }
+        }
+    </style>
+
+    <section class="project-section">
+        <div class="nav-arrow left-arrow" id="btn-prev"><i class="ph ph-caret-left"></i></div>
+        <div class="nav-arrow right-arrow" id="btn-next"><i class="ph ph-caret-right"></i></div>
+
+        <div class="project-header">
+            <div class="project-title-row">
+                <h2>Popular <span>Projects</span></h2>
+                <div class="controls-wrapper">
+                    <div class="switch-group" id="currency-switch">
+                        <button class="switch-btn active" data-currency="TSH">TSH</button>
+                        <button class="switch-btn" data-currency="EUR">EUR</button>
+                        <button class="switch-btn" data-currency="USD">USD</button>
+                    </div>
+                    <div class="switch-group" id="payment-switch">
+                        <button class="switch-btn active" data-type="one-time">One-time</button>
+                        <button class="switch-btn" data-type="monthly">Monthly</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-container" id="project-scroll">
+            <div class="project-card" data-base-price="1500000">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600')">
+                    <div class="popular-badge"><i class="ph-fill ph-fire"></i> POPULAR</div>
+                </div>
+                <div class="card-content">
+                    <span class="card-location">Kigamboni, Dar es Salaam</span>
+                    <h3 class="card-name">Ocean View Estate</h3>
+                    <div class="price-tag">
+                        <span class="currency-symbol">Tsh</span>
+                        <span class="price-value">15M</span>
+                        <span class="price-period"></span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="view-btn">View Details <i class="ph ph-arrow-up-right"></i></div>
+                        <i class="ph ph-heart"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-base-price="8500000">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=600')">
+                    <div class="popular-badge"><i class="ph-fill ph-fire"></i> POPULAR</div>
+                </div>
+                <div class="card-content">
+                    <span class="card-location">Tundwi, Dar es Salaam</span>
+                    <h3 class="card-name">Green Valley Plots</h3>
+                    <div class="price-tag">
+                        <span class="currency-symbol">Tsh</span>
+                        <span class="price-value">8.5M</span>
+                        <span class="price-period"></span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="view-btn">View Details <i class="ph ph-arrow-up-right"></i></div>
+                        <i class="ph ph-heart"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-base-price="2000000">
+                <div class="card-image" style="background-image: url('https://static.rome2rio.com/lp-proxy/assets/drive-landscape-1920px-Dx6xCWtu.jpeg')">
+                    <div class="popular-badge"><i class="ph-fill ph-fire"></i> POPULAR</div>
+                </div>
+                <div class="card-content">
+                    <span class="card-location">Kimbiji, Dar es Salaam</span>
+                    <h3 class="card-name">The Heights Residency</h3>
+                    <div class="price-tag">
+                        <span class="currency-symbol">Tsh</span>
+                        <span class="price-value">2M</span>
+                        <span class="price-period"></span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="view-btn">View Details <i class="ph ph-arrow-up-right"></i></div>
+                        <i class="ph ph-heart"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-base-price="1200000">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=600')">
+                    <div class="popular-badge"><i class="ph-fill ph-fire"></i> POPULAR</div>
+                </div>
+                <div class="card-content">
+                    <span class="card-location">Buyuni, Dar es Salaam</span>
+                    <h3 class="card-name">Sunset Ridge</h3>
+                    <div class="price-tag">
+                        <span class="currency-symbol">Tsh</span>
+                        <span class="price-value">1.2M</span>
+                        <span class="price-period"></span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="view-btn">View Details <i class="ph ph-arrow-up-right"></i></div>
+                        <i class="ph ph-heart"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const state = { currency: 'TSH', paymentType: 'one-time' };
+        const rates = { TSH: 1, EUR: 0.00035, USD: 0.00038 };
+        const symbols = { TSH: 'Tsh', EUR: '€', USD: '$' };
+
+ function updatePrices() {
+    document.querySelectorAll('.project-card').forEach(card => {
+        const base = parseFloat(card.dataset.basePrice);
+        let price = base * rates[state.currency];
+
+        if (state.paymentType === 'monthly') {
+            price = price / 12;
+            if (price >= 1000000) {
+                price = price / 1000;
+            }
+        }
+
+        let formatted;
+        if (state.paymentType === 'monthly' && price >= 1000) {
+            formatted = price.toLocaleString(undefined, { maximumFractionDigits: 0 }) + 'k';
+        } else if (price >= 1000000) {
+            formatted = (price / 1000000).toFixed(1) + 'M';
+        } else {
+            formatted = price.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        }
+
+        card.querySelector('.currency-symbol').textContent = symbols[state.currency];
+        card.querySelector('.price-value').textContent = formatted;
+        card.querySelector('.price-period').textContent = state.paymentType === 'monthly' ? '/mo' : '';
+    });
+}
+
+
+        document.querySelectorAll('#currency-switch .switch-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelector('#currency-switch .active').classList.remove('active');
+                btn.classList.add('active');
+                state.currency = btn.dataset.currency;
+                updatePrices();
+            });
+        });
+
+        document.querySelectorAll('#payment-switch .switch-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelector('#payment-switch .active').classList.remove('active');
+                btn.classList.add('active');
+                state.paymentType = btn.dataset.type;
+                updatePrices();
+            });
+        });
+
+        const scrollContainer = document.getElementById('project-scroll');
+        document.getElementById('btn-next').onclick = () => scrollContainer.scrollBy({ left: 380, behavior: 'smooth' });
+        document.getElementById('btn-prev').onclick = () => scrollContainer.scrollBy({ left: -380, behavior: 'smooth' });
+
+        document.querySelectorAll('.ph-heart').forEach(heart => {
+            heart.addEventListener('click', (e) => {
+                e.stopPropagation();
+                heart.classList.toggle('ph-fill');
+            });
+        });
+
+        document.querySelectorAll('.view-btn').forEach(el => {
+            el.addEventListener('click', () => alert('Services Not Available – Thanks for Choosing MBS Capital.'));
+        });
+
+        gsap.from(".project-card", {
+            opacity: 0,
+            x: 100,
+            stagger: 0.1,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: { trigger: ".project-section", start: "top 80%" }
+        });
+    </script>

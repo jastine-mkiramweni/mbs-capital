@@ -1,0 +1,234 @@
+
+    <style>
+        :root {
+            --green: #00C83C;
+            --blue: #0020E6;
+            --white: #FFFFFF;
+            --dark: #0A0F1A;
+            --gray-text: #94A3B8;
+            --radius-max: 50px;
+            --radius-modern: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .faq-section {
+            padding: 80px 8%;
+            background-color: var(--white);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--dark);
+        }
+
+        .faq-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .faq-title {
+            color: var(--green);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 4px;
+            border-radius: var(--radius-max);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            width: 160px;
+            cursor: pointer;
+        }
+
+        .lang-option {
+            flex: 1;
+            text-align: center;
+            padding: 8px 0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            z-index: 2;
+            transition: 0.3s;
+            color: #64748b;
+        }
+
+        .lang-option.active {
+            color: var(--white);
+        }
+
+        .lang-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: var(--green);
+            border-radius: var(--radius-max);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .lang-toggle.sw .lang-slider {
+            transform: translateX(100%);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .faq-question h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding-right: 30px;
+            color: var(--dark);
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            color: var(--green);
+            transition: transform 0.4s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            opacity: 1;
+            padding-bottom: 30px;
+        }
+
+        .faq-answer p {
+            color: #475569;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 768px) {
+            .faq-section { padding: 60px 5%; }
+            .faq-question h3 { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="faq-section">
+        <div class="faq-header">
+            <h2 class="faq-title" id="faq-main-title">Frequently Asked Questions</h2>
+            <div class="lang-toggle" id="lang-toggle">
+                <div class="lang-slider"></div>
+                <div class="lang-option active" data-lang="en">ENGLISH</div>
+                <div class="lang-option" data-lang="sw">SWAHILI</div>
+            </div>
+        </div>
+
+        <div class="faq-container" id="faq-list"></div>
+    </section>
+
+    <script>
+        const faqData = {
+            en: {
+                title: "Frequently Asked Questions",
+                items: [
+                    { q: "What are the installment payment options?", a: "We offer flexible installment plans up to 24 months with a 30% initial deposit to start your ownership journey." },
+                    { q: "How do I start the land purchasing process?", a: "Simply select your preferred location, verify the plot details with our consultants, and proceed with the initial deposit to secure your investment." },
+                    { q: "Are all property titles verified?", a: "Yes, every project under MBS Capital undergoes a rigorous legal audit. We only list properties with 100% verified and clean title deeds." },
+                    { q: "Do you offer flexible payment plans?", a: "We provide tailored installment options ranging from 6 to 24 months to ensure our premium land is accessible to all visionary investors." },
+                    { q: "Can I visit the project sites?", a: "Absolutely. We organize weekly site visits for our clients to experience the location, infrastructure, and potential firsthand." }
+                ]
+            },
+            sw: {
+                title: "Maswali Yanayoulizwa Mara kwa Mara",
+                items: [
+                    { q: "Je, kuna utaratibu gani wa malipo ya awamu?", a: "Tunatoa mipango rahisi ya malipo ya awamu hadi miezi 24 kwa kuanza na amana ya 30% ya thamani ya kiwanja." },
+                    { q: "Ninaanzaje mchakato wa kununua ardhi?", a: "Chagua eneo unalopenda, hakiki maelezo ya kiwanja na washauri wetu, na ulipe amana ya awali ili kulinda uwekezaji wako." },
+                    { q: "Je, hati miliki zote zimehakikiwa?", a: "Ndiyo, kila mradi chini ya MBS Capital hupitia ukaguzi mkali wa kisheria. Tunaorodhesha tu maeneo yenye hati miliki safi zilizohakikiwa kwa 100%." },
+                    { q: "Je, mna kutoa mipango rahisi ya malipo?", a: "Tunatoa chaguzi za malipo ya awamu kuanzia miezi 6 hadi 24 ili kuhakikisha ardhi yetu inawafikia wawekezaji wote wenye maono." },
+                    { q: "Je, naweza kutembelea maeneo ya mradi?", a: "Bila shaka. Tunaratibu ziara za kila wiki kwa wateja wetu ili waweze kuona eneo, miundombinu, na fursa zilizopo ana kwa ana." }
+                ]
+            }
+        };
+
+        let currentLang = 'en';
+
+        function renderFAQ() {
+            const list = document.getElementById('faq-list');
+            const title = document.getElementById('faq-main-title');
+            
+            title.innerText = faqData[currentLang].title;
+            list.innerHTML = '';
+
+            faqData[currentLang].items.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'faq-item';
+                div.innerHTML = `
+                    <div class="faq-question">
+                        <h3>${item.q}</h3>
+                        <i class="ph ph-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>${item.a}</p>
+                    </div>
+                `;
+                
+                div.querySelector('.faq-question').onclick = () => {
+                    const isActive = div.classList.contains('active');
+                    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                    if (!isActive) div.classList.add('active');
+                };
+                
+                list.appendChild(div);
+            });
+
+            gsap.from(".faq-item", {
+                opacity: 0,
+                y: 20,
+                stagger: 0.1,
+                duration: 0.6,
+                ease: "power2.out"
+            });
+        }
+
+        document.getElementById('lang-toggle').onclick = function() {
+            currentLang = currentLang === 'en' ? 'sw' : 'en';
+            this.classList.toggle('sw');
+            
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.lang === currentLang);
+            });
+            
+            renderFAQ();
+        };
+
+        renderFAQ();
+    </script>

@@ -1,0 +1,285 @@
+
+    <style>
+        :root {
+            --green: #00C83C;
+            --blue: #0020E6;
+            --white: #FFFFFF;
+            --dark: #0A0F1A;
+            --gray-text: #94A3B8;
+            --radius-max: 50px;
+            --radius-modern: 16px;
+        }
+
+        * {
+            margin:0;
+            padding: 0;
+        }
+
+        .footer-section {
+            background-color: var(--dark);
+            padding: 80px 8% 40px 8%;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--white);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-top-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-brand-col {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            height: 50px;
+            width: auto;
+            align-self: flex-start;
+        }
+
+        .footer-brand-text {
+            color: var(--gray-text);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .footer-col-title {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: var(--gray-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--green);
+        }
+
+        .newsletter-col {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .newsletter-input-group {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px;
+            border-radius: var(--radius-max);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .newsletter-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0 15px;
+            color: var(--white);
+            outline: none;
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+
+        .subscribe-btn {
+            background: var(--green);
+            color: var(--dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-max);
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .subscribe-btn:hover {
+            background: var(--white);
+        }
+
+        .footer-car-display {
+            position: absolute;
+            bottom: 100px;
+            right: -50px;
+            width: 450px;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--green);
+            color: var(--dark);
+        }
+
+        .payment-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .payment-img {
+            height: 20px;
+            filter: grayscale(1) brightness(1.5);
+            opacity: 0.6;
+        }
+
+        .copyright-text {
+            color: var(--gray-text);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-top-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-car-display {
+                width: 300px;
+                right: -20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-section {
+                padding: 60px 5% 30px 5%;
+            }
+            .footer-top-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-logo {
+                align-self: center;
+            }
+            .newsletter-input-group {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .footer-bottom {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .payment-group {
+                margin-bottom: 10px;
+            }
+            .footer-car-display {
+                position: relative;
+                bottom: 0;
+                right: 0;
+                width: 80%;
+                margin: 20px auto;
+                display: block;
+                opacity: 0.6;
+            }
+        }
+    </style>
+
+    <section class="footer-section">
+        <div class="footer-top-grid">
+            <div class="footer-brand-col">
+                <img src="images/logo.png" alt="MBS Capital" class="footer-logo">
+                <p class="footer-brand-text">
+                    Redefining real estate investment through integrity, innovation, and strategic asset growth across the region's most promising corridors.
+                </p>
+                <div class="social-group">
+                    <a href="#" class="social-icon"><i class="ph ph-instagram-logo"></i></a>
+                    <a href="#" class="social-icon"><i class="ph ph-facebook-logo"></i></a>
+                    <a href="#" class="social-icon"><i class="ph ph-linkedin-logo"></i></a>
+                    <a href="#" class="social-icon"><i class="ph ph-youtube-logo"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links-col">
+                <h4 class="footer-col-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Properties</a></li>
+                    <li><a href="#">Investments</a></li>
+                    <li><a href="#">Market Insights</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-col">
+                <h4 class="footer-col-title">Support</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Legal Verification</a></li>
+                    <li><a href="#">Site Map</a></li>
+                </ul>
+            </div>
+
+            <div class="newsletter-col">
+                <h4 class="footer-col-title">Stay Updated</h4>
+                <p class="footer-brand-text">Join our newsletter for exclusive project launches and investment opportunities.</p>
+                <div class="newsletter-input-group">
+                    <input type="email" class="newsletter-input" placeholder="Email address">
+                    <button class="subscribe-btn">Join</button>
+                </div>
+            </div>
+        </div>
+
+        <img src="images/mbs-capital-car.png" alt="MBS Vehicle" class="footer-car-display">
+
+        <div class="footer-bottom">
+            <p class="copyright-text">© 2025 MBS Capital. All rights reserved.</p>
+            
+          <div class="payment-group">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Visa_Inc._logo_%282005%E2%80%932014%29.png" alt="Visa" class="payment-img">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="Mastercard" class="payment-img">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1200px-PayPal.svg.png" alt="PayPal" class="payment-img">
+                <img src="https://nikulipe.com/wp-content/uploads/2022/09/Airtel_logo_PNG1.png" alt="Airtel Money" class="payment-img">
+            </div>
+        </div>
+    </section>

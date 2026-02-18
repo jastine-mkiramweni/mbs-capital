@@ -1,0 +1,254 @@
+
+    <style>
+        :root {
+            --green: #00C83C;
+            --blue: #0020E6;
+            --white: #FFFFFF;
+            --dark: #0A0F1A;
+            --gray-text: #94A3B8;
+            --radius-max: 50px;
+            --radius-modern: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .location-section {
+            padding: 40px 8%;
+            background-color: var(--white);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .map-container {
+            height: 480px;
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            z-index: 10;
+            background: #f1f5f9;
+        }
+
+        .pulse-marker {
+            width: 16px;
+            height: 16px;
+            background: var(--green);
+            border-radius: 50%;
+            border: 3px solid var(--white);
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 200, 60, 0.3);
+        }
+
+        .pulse-marker::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: marker-pulse 2s infinite;
+            z-index: -1;
+        }
+
+        @keyframes marker-pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            100% { transform: scale(3.5); opacity: 0; }
+        }
+
+        .leaflet-div-icon {
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .location-content {
+            max-width: 520px;
+        }
+
+        .location-tag {
+            color: var(--blue);
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .location-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .location-description {
+            color: #475569;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .feature-item i {
+            color: var(--green);
+            font-size: 1.1rem;
+        }
+
+        .location-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--dark);
+            color: var(--white);
+            padding: 14px 32px;
+            border-radius: var(--radius-max);
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .location-btn:hover {
+            background: var(--blue);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 32, 230, 0.15);
+        }
+
+        @media (max-width: 1024px) {
+            .location-section { padding: 40px 5%; }
+            .location-grid { grid-template-columns: 1fr; gap: 35px; }
+            .location-content { max-width: 100%; text-align: center; }
+            .feature-list { align-items: center; }
+            .map-container { height: 350px; order: -1; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="location-section" id="location-section">
+        <div class="location-grid">
+            <div id="map-container" class="map-container"></div>
+
+            <div class="location-content" id="location-content">
+                <span class="location-tag">Strategic Locations</span>
+                <h2 class="location-title">Invest Where the Future is Building.</h2>
+                <p class="location-description">
+                    We meticulously select project sites in Dar es Salaam's most promising growth sectors. Our locations offer a unique blend of coastal serenity and high-yield investment potential, all secured with verified documentation.
+                </p>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <i class="ph-fill ph-check-circle"></i>
+                        <span>High-appreciation coastal corridors</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="ph-fill ph-check-circle"></i>
+                        <span>Direct access to new infrastructure</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="ph-fill ph-check-circle"></i>
+                        <span>Verified land titles and secure ownership</span>
+                    </div>
+                </div>
+
+                <button class="location-btn" id="location-btn">
+                    Learn More <i class="ph-bold ph-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const map = L.map('map-container', {
+            center: [-6.90, 39.35],
+            zoom: 10,
+            scrollWheelZoom: false,
+            zoomControl: false
+        });
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
+
+        const locations = [
+            { name: "Kigamboni Projects", coords: [-6.82, 39.32] },
+            { name: "Kimbiji Estates", coords: [-6.99, 39.52] },
+            { name: "Buyuni Heights", coords: [-7.02, 39.43] },
+            { name: "Tundwi Coast", coords: [-6.89, 39.39] }
+        ];
+
+        const customIcon = L.divIcon({
+            className: 'custom-div-icon',
+            html: "<div class='pulse-marker'></div>",
+            iconSize: [16, 16],
+            iconAnchor: [8, 8]
+        });
+
+        locations.forEach(loc => {
+            L.marker(loc.coords, { icon: customIcon })
+                .addTo(map)
+                .bindPopup(`<b>${loc.name}</b>`);
+        });
+
+        window.addEventListener('load', () => {
+            gsap.from("#map-container", {
+                opacity: 0,
+                scale: 0.95,
+                duration: 1.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#location-section",
+                    start: "top 80%"
+                }
+            });
+
+            gsap.from("#location-content > *", {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                stagger: 0.15,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#location-section",
+                    start: "top 80%"
+                }
+            });
+
+            document.getElementById('location-btn').addEventListener('click', () => {
+                alert('Services Not Available – Thanks for Choosing MBS Capital.');
+            });
+        });
+    </script>

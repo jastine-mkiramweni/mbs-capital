@@ -1,0 +1,351 @@
+
+    <style>
+        :root {
+            --green: #00C83C;
+            --blue: #0020E6;
+            --white: #FFFFFF;
+            --dark: #0A0F1A;
+            --gray-text: #94A3B8;
+            --radius-max: 50px;
+            --radius-modern: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .performance-section {
+            padding: 60px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 80px;
+            background-color: var(--white);
+            color: var(--dark);
+            position: relative;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .performance-content {
+            flex: 1;
+            max-width: 580px;
+            z-index: 10;
+        }
+
+        .performance-tag {
+            color: var(--green);
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .performance-title {
+            font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .performance-text {
+            color: #475569;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .inline-learn-more {
+            color: var(--green);
+            text-decoration: none;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 8px;
+            transition: gap 0.3s;
+            cursor: pointer;
+        }
+
+        .inline-learn-more:hover {
+            gap: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .stat-box h3 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .stat-box p {
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .visual-container {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .rating-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 10px 18px;
+            background: rgba(10, 15, 26, 0.03);
+            border-radius: 18px;
+            width: fit-content;
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        .avatar-stack {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid var(--white);
+            margin-left: -12px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .user-avatar:first-child { margin-left: 0; }
+
+        .rating-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rating-score {
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--dark);
+        }
+
+        .rating-stars {
+            color: #FFB800;
+            font-size: 0.8rem;
+            display: flex;
+            gap: 2px;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .main-display-img {
+            width: 100%;
+            border-radius: 24px;
+            object-fit: cover;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .floating-badge {
+            position: absolute;
+            top: 20px;
+            left: -30px;
+            background: var(--white);
+            padding: 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .badge-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--blue);
+            color: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .floating-card {
+            position: absolute;
+            bottom: 20px;
+            right: -20px;
+            background: var(--green);
+            color: var(--dark);
+            padding: 20px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            box-shadow: 0 20px 40px rgba(0, 200, 60, 0.2);
+        }
+
+        .glass-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 75%;
+            height: 35%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding: 25px;
+        }
+
+        @media (max-width: 1024px) {
+            .performance-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 60px 5%;
+            }
+            .performance-content { max-width: 100%; }
+            .stats-grid { justify-items: center; }
+            .visual-container { align-items: center; margin-top: 40px; }
+            .floating-badge { left: 0; top: -20px; }
+            .floating-card { right: 0; bottom: -20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="performance-section" id="perf-sec">
+        <div class="performance-content">
+            <span class="performance-tag">Market Leadership</span>
+            <h2 class="performance-title">Global Expertise, Local Results.</h2>
+            <p class="performance-text">
+                We bridge the gap between premium land opportunities and visionary investors, ensuring every transaction is backed by data and absolute transparency.
+                <a class="inline-learn-more" id="inline-trigger">Learn More <i class="ph-bold ph-arrow-right"></i></a>
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3 id="v-clients">0</h3>
+                    <p>Satisfied Clients</p>
+                </div>
+                <div class="stat-box">
+                    <h3 id="v-props">0</h3>
+                    <p>Properties Sold</p>
+                </div>
+                <div class="stat-box">
+                    <h3 id="v-years">0</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-box">
+                    <h3 id="v-mkt">0</h3>
+                    <p>Market Presence</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="visual-container">
+            <div class="rating-wrapper" id="rating-box">
+                <div class="avatar-stack">
+                    <div class="user-avatar" style="background-image: url('https://i.pravatar.cc/100?u=8')"></div>
+                    <div class="user-avatar" style="background-image: url('https://i.pravatar.cc/100?u=12')"></div>
+                    <div class="user-avatar" style="background-image: url('https://i.pravatar.cc/100?u=15')"></div>
+                </div>
+                <div class="rating-info">
+                    <span class="rating-score">4.9/5.0 Rating from 500+ happy clients</span>
+                    <div class="rating-stars">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-wrapper">
+                <img src="images/vf_1024X768(11)_0.jpeg" alt="Excellence" class="main-display-img">
+                
+                <div class="floating-badge" id="f-badge">
+                    <div class="badge-icon"><i class="ph-bold ph-medal"></i></div>
+                    <div>
+                        <p style="font-weight: 800; font-size: 0.9rem; color: var(--dark);">Top Tier Agency</p>
+                        <p style="font-size: 0.7rem; color: #64748b;">Awarded 2024</p>
+                    </div>
+                </div>
+
+<div class="glass-overlay" id="g-overlay" style="display: flex; align-items: center; gap: 20px;">
+    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        <p style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin: 0; color: var(--white);">
+            Annual Growth
+        </p>
+        <div style="display: flex; align-items: center; gap: 8px; color: var(--green); font-weight: 800; font-size: 1.4rem;">
+            <i class="ph-bold ph-trend-up"></i>
+            <span>+24.8%</span>
+        </div>
+    </div>
+    <span style="color: var(--white ); font-size: 0.85rem; white-space: nowrap;">
+        Year-over-year growth
+    </span>
+</div>
+
+
+
+                <div class="floating-card" id="f-card">
+                    <p style="font-weight: 800; font-size: 1.1rem;">100% Secure</p>
+                    <p style="font-size: 0.8rem; font-weight: 600;">Verified Assets</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const startCount = (id, target, suffix = "+") => {
+            let obj = { val: 0 };
+            gsap.to(obj, {
+                val: target,
+                duration: 2,
+                scrollTrigger: { trigger: "#perf-sec", start: "top 80%" },
+                onUpdate: () => { document.getElementById(id).innerHTML = Math.floor(obj.val) + suffix; }
+            });
+        };
+            startCount("v-clients", 2500);
+            startCount("v-props", 1800);
+            startCount("v-years", 12, "");
+            startCount("v-mkt", 35);
+
+            gsap.timeline({ scrollTrigger: { trigger: "#perf-sec", start: "top 70%" } })
+                .from(".performance-tag", { opacity: 0, y: 20 })
+                .from(".performance-title", { opacity: 0, y: 20 }, "-=0.3")
+                .from(".performance-text", { opacity: 0, y: 20 }, "-=0.3")
+                .from(".stat-box", { opacity: 0, y: 20, stagger: 0.1 }, "-=0.3")
+                .to("#rating-box", { opacity: 1, y: 0, duration: 0.8 }, "-=0.5");
+
+            gsap.from(".image-wrapper", { opacity: 0, x: 50, duration: 1, scrollTrigger: "#perf-sec" });
+            gsap.from("#f-badge", { x: -30, opacity: 0, delay: 0.5, scrollTrigger: "#perf-sec" });
+            gsap.from("#f-card", { x: 30, opacity: 0, delay: 0.7, scrollTrigger: "#perf-sec" });
+            gsap.from("#g-overlay", { scale: 0.8, opacity: 0, delay: 0.9, scrollTrigger: "#perf-sec" });
+
+            document.getElementById('inline-trigger').addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Services Not Available – Thanks for Choosing MBS Capital.');
+            });
+        
+    </script>
